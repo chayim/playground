@@ -33,8 +33,12 @@ jobs:
 
   integration:
     runs-on: ubuntu-latest
+    services:
+      redismod:
+        image: redislabs/redismod:edge
+        ports: 6379/6379
     steps:
-      - name: show it all
+      - name: SHOW VERSIONS
         run: |
           echo redis-${{inputs.redis_version}} \
             search-${{inputs.redisearch_version}} \
