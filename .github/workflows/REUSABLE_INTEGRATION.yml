@@ -1,0 +1,41 @@
+name: Integration
+
+on:
+
+  workflow_call:
+    inputs:
+      redis_version:
+        default: '100.0.0-2938'
+        required: true
+        type: string
+      redisearch_version:
+        description: 'RediSearch version'
+        required: false
+        type: string
+      redisjson_version:
+        description: 'RedisJSON version'
+        required: false
+      redisbloom_version:
+        description: 'RedisBloom version'
+        required: false
+      redisgraph_version:
+        description: 'RedisGraph version'
+        required: false
+      redistimeseries_version:
+        description: 'RedisTimeSeries version'
+        required: false
+
+jobs:
+
+  integration:
+    runs-on: ubuntu-latest
+    steps:
+      - name: show it all
+        run: |
+          echo redis-${{inputs.redis_version}} \
+            search-${{inputs.redisearch_version}} \
+            json-${{inputs.redisjson_version}} \
+            graph-${{inputs.redisgraph_version}} \
+            bloom-${{inputs.redisbloom_version}} \
+            timeseries-${{inputs.redistimeseries_version}}
+
