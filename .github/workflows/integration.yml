@@ -1,0 +1,111 @@
+name: CI
+
+on:
+  workflow_dispatch:
+    inputs:
+      redis_version:
+        description: 'Redis Enterprise cluster version'
+        default: '100.0.0-2938'
+        required: true
+        type: choice
+        options:
+          - 6.2.18-49
+          - 6.2.12-82
+          - 6.2.10-129
+          - 6.2.8-53
+          - 6.2.4-54
+          - 6.0.20-101
+          - 6.0.12-58
+          - 6.0.8-32
+          - 6.0.6-39
+      redisearch_version:
+        description: 'RediSearch version'
+        required: false
+        type: string
+      redisjson_version:
+        description: 'RedisJSON version'
+        required: false
+      redisbloom_version:
+        description: 'RedisBloom version'
+        required: false
+      redisgraph_version:
+        description: 'RedisGraph version'
+        required: false
+      redistimeseries_version:
+        description: 'RedisTimeSeries version'
+        required: false
+
+  push:
+    paths-ignore:
+      - '*.md'
+      - 'docs/**'
+    branches:
+      - main
+      - master
+
+  pull_request:
+    branches:
+      - main
+      - master
+
+jobs:
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: show it all
+        run: |
+          echo redis-${{inputs.redis_version}} \
+            search-${{inputs.redisearch_version}} \
+            json-${{inputs.redisjson_version}} \
+            graph-${{inputs.redisgraph_version}} \
+            bloom-${{inputs.redisbloom_version}} \
+            timeseries-${{inputs.redistimeseries_version}} \
+#    name: Run tests
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v3
+#      - name: install python
+#        uses: actions/setup-python@v4
+#      - name: cache
+#        uses: actions/cache@v3
+#        id: cache-tox
+#        with:
+#          key: baseline-${{ hashFiles('**/tox.ini', '**/pyproject.toml') }}
+#          path:
+#            ~/.cache/pip
+#            ~/.cache/pypoetry
+#            .tox
+#      - name: install tools
+#        run: pip install --upgrade pip poetry tox
+#      - name: poetry
+#        run: |
+#          poetry config virtualenvs.create false
+#          poetry install
+#      - name: generate dotenv for ci
+#        uses: iamsauravsharma/create-dotenv@v1.2.1
+#        with:
+#          file-name: .env
+#        env:
+#          NOCLUSTER: 1
+#          AWS_ACCESS_KEY: ${{secrets.CTO_AUTOMATION_AWS_ACCESS_KEY}}
+#          AWS_SECRET_KEY: ${{secrets.CTO_AUTOMATION_AWS_SECRET_KEY}}
+#
+#      - name: run ci tests
+#        run: |
+#          invoke ci
+#      - uses: actions/upload-artifact@v2
+#        if: success() || failure()
+#        with:
+#          name: pytest-results
+#          path: pytest_results.xml
+#      - uses: dorny/test-reporter@v1
+#        if: success() || failure()
+#        with:
+#          name: Test Results
+#          path: '*.xml'
+#          reporter: java-junit
+#          list-suites: all
+#          list-tests: all
+#          max-annotations: 10
+#          fail-on-error: 'false'
