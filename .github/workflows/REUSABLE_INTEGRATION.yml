@@ -15,15 +15,19 @@ on:
       redisjson_version:
         description: 'RedisJSON version'
         required: false
+        type: string
       redisbloom_version:
         description: 'RedisBloom version'
         required: false
+        type: string
       redisgraph_version:
         description: 'RedisGraph version'
         required: false
+        type: string
       redistimeseries_version:
         description: 'RedisTimeSeries version'
         required: false
+        type: string
 
 jobs:
 
