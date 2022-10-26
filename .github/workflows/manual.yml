@@ -39,6 +39,7 @@ on:
 jobs:
 
   test:
+    name: Cluster ${{inputs.redis_version}} REJSON ${{inputs.redisjson_version}} RG ${{inputs.redisgraph_version}} BLOOM ${{inputs.redisbloom_version}} RTS ${{inputs.redistimeseries_version}} RSS ${{inputs.redisearch_version}}
     uses: ./.github/workflows/REUSABLE_INTEGRATION.yml
     with:
       redis_version: ${{ inputs.redis_version}}
