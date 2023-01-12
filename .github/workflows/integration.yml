@@ -22,3 +22,6 @@ jobs:
       - name: env the env
         run: |
           set
+
+      - name: are i are
+        run: echo ${{github.head_ref}}
