@@ -17,4 +17,11 @@ on:
 jobs:
 
   test:
-    uses: ./.github/workflows/REUSABLE_INTEGRATION.yml
+    runs-on: ubuntu-latest
+    steps:
+      - name: env the env
+        run: |
+          set
+
+      - name: are i are
+        run: echo ${{github.head_ref}}
